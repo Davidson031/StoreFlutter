@@ -15,6 +15,15 @@ class UserScreen extends StatefulWidget {
 }
 
 class _UserScreenState extends State<UserScreen> {
+  final TextEditingController _addressTextController =
+      TextEditingController(text: "");
+
+  @override
+  void dispose() {
+    _addressTextController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final themeState = Provider.of<DarkThemeProvider>(context);
@@ -39,20 +48,21 @@ class _UserScreenState extends State<UserScreen> {
                         fontWeight: FontWeight.bold),
                     children: <TextSpan>[
                       TextSpan(
-                        text: "MyName",
-                        style: TextStyle(
-                            color: color,
-                            fontSize: 25,
-                            fontWeight: FontWeight.w600),
-                        recognizer: TapGestureRecognizer()..onTap = (){
-                          print("my name was pressed");
-                        }
-                      )
+                          text: "MyName",
+                          style: TextStyle(
+                              color: color,
+                              fontSize: 25,
+                              fontWeight: FontWeight.w600),
+                          recognizer: TapGestureRecognizer()..onTap = () {})
                     ],
                   ),
                 ),
                 const SizedBox(height: 5),
-                TextWidget(text: "email@email.com", color: color, textSize: 18, isTitle: false),
+                TextWidget(
+                    text: "email@email.com",
+                    color: color,
+                    textSize: 18,
+                    isTitle: false),
                 const SizedBox(height: 20),
                 const Divider(
                   thickness: 2,
@@ -63,7 +73,9 @@ class _UserScreenState extends State<UserScreen> {
                     subtitle: "my subtitle",
                     icon: IconlyBold.profile,
                     color: color,
-                    onPressed: () {}),
+                    onPressed: () async {
+                      _showAddressDialog();
+                    }),
                 _listTiles(
                   title: "Orders",
                   subtitle: "my subtitle",
@@ -90,7 +102,12 @@ class _UserScreenState extends State<UserScreen> {
                   color: color,
                 ),
                 SwitchListTile(
-                  title: TextWidget(text: themeState.getDarkTheme ? "Dark mode" : "Light mode", color: color, textSize: 18, isTitle: false),
+                  title: TextWidget(
+                      text:
+                          themeState.getDarkTheme ? "Dark mode" : "Light mode",
+                      color: color,
+                      textSize: 18,
+                      isTitle: false),
                   secondary: Icon(themeState.getDarkTheme
                       ? Icons.dark_mode_outlined
                       : Icons.light_mode_outlined),
@@ -104,7 +121,9 @@ class _UserScreenState extends State<UserScreen> {
                 _listTiles(
                   title: "Logout",
                   icon: IconlyLight.logout,
-                  onPressed: () {},
+                  onPressed: () {
+                    _showLogoutDialog();
+                  },
                   color: color,
                 ),
               ],
@@ -112,6 +131,70 @@ class _UserScreenState extends State<UserScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  Future<void> _showLogoutDialog() async {
+    await showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Row(
+            children: [
+              Image.asset(
+                "assets/images/warning-sign.png",
+                height: 20,
+                width: 20,
+                fit: BoxFit.fill,
+              ),
+              SizedBox(width: 8),
+              const Text("Sign Out"),
+            ],
+          ),
+          content: Text("Do you wanna sign out?"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                if (Navigator.canPop(context)) {
+                  Navigator.of(context).pop();
+                }
+              },
+              child:
+                  TextWidget(text: "Cancel", color: Colors.cyan, textSize: 14),
+            ),
+            TextButton(
+              onPressed: () {
+                if (Navigator.canPop(context)) {
+                  Navigator.of(context).pop();
+                }
+              },
+              child: TextWidget(text: "Ok", color: Colors.red, textSize: 14),
+            )
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _showAddressDialog() async {
+    await showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text("Update Address"),
+          content: TextField(
+            onChanged: (value) {},
+            controller: _addressTextController,
+            maxLines: 5,
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {},
+              child: const Text("Update"),
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -131,7 +214,7 @@ class _UserScreenState extends State<UserScreen> {
           color: color,
           textSize: 15,
           isTitle: false),
-      onTap: () => onPressed,
+      onTap: () => onPressed(),
     );
   }
 }

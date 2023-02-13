@@ -37,9 +37,6 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
     bool _isDark = themeState.getDarkTheme;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(_pages[_selectedIndex]['title']),
-      ),
       body: _pages[_selectedIndex]['page'],
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.amber, //themeState.getDarkTheme ? Theme.of(context).cardColor : Colors.black,
