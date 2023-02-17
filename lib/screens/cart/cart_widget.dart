@@ -134,7 +134,8 @@ class _CartWidgetState extends State<CartWidget> {
                           TextWidget(text: "\$6.11", color: color, textSize: 18, maxLines: 1,)
                         ],
                       ),
-                    )
+                    ),
+                    const SizedBox(width: 5)
                   ],
                 ),
               ),
@@ -158,10 +159,11 @@ class _CartWidgetState extends State<CartWidget> {
             onTap: () => fct,
             borderRadius: BorderRadius.circular(12),
             child: Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(6.0),
               child: Icon(
                 icon,
                 color: Colors.white,
+                size: 20,
               ),
             ),
           ),
