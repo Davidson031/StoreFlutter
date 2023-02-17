@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:seller_app/consts/theme_data.dart';
+import 'package:seller_app/inner_screens/feeds_screen.dart';
+import 'package:seller_app/inner_screens/on_sale_screen.dart';
 import 'package:seller_app/provider/dark_theme_provider.dart';
 import 'package:seller_app/screens/btm_bar.dart';
 import 'screens/home_screen.dart';
@@ -56,6 +58,10 @@ class _MyAppState extends State<MyApp> {
             title: 'Sellers App',
             theme: Styles.themeData(themeProvider.getDarkTheme, context),
             home: BottomBarScreen(),
+            routes: {
+              OnSaleScreen.routeName:(context) => const OnSaleScreen(),
+              FeedsScreen.routeName:(context) => const FeedsScreen(),
+            },
           );
         }
       ),

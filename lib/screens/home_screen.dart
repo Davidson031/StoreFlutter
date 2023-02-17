@@ -4,7 +4,10 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:provider/provider.dart';
+import 'package:seller_app/inner_screens/feeds_screen.dart';
+import 'package:seller_app/inner_screens/on_sale_screen.dart';
 import 'package:seller_app/provider/dark_theme_provider.dart';
+import 'package:seller_app/services/global_methods.dart';
 import 'package:seller_app/services/utils.dart';
 import 'package:seller_app/widgets/feed_items.dart';
 import 'package:seller_app/widgets/on_sale_widget.dart';
@@ -55,7 +58,9 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             const SizedBox(height: 6),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                GlobalMethods.navigateTo(ctx: context, routeName: OnSaleScreen.routeName);
+              },
               child: TextWidget(
                 text: "View all",
                 color: Colors.blue,
@@ -116,7 +121,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     isTitle: true,
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      GlobalMethods.navigateTo(ctx: context, routeName: FeedsScreen.routeName);
+                    },
                     child: TextWidget(
                       text: "Browse all",
                       color: Colors.blue,
@@ -132,7 +139,7 @@ class _HomeScreenState extends State<HomeScreen> {
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               crossAxisCount: 2,
-              childAspectRatio: size.width / (size.height * 0.6),
+              childAspectRatio: size.width / (size.height * 0.7),
               //crossAxisSpacing: 10,
               children: List.generate(4, (index){
                 return FeedItems();

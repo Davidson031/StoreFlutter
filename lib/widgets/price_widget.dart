@@ -42,7 +42,7 @@ class PriceWidget extends StatelessWidget {
             visible: isOnSale ? true : false,
             child: Text(
               "\$${(normalPrice * int.parse(textPrice)).toStringAsFixed(2)}",
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 15,
                 color: Colors.red,
                 decoration: TextDecoration.lineThrough,

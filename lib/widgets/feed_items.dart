@@ -18,8 +18,6 @@ class FeedItems extends StatefulWidget {
 class _FeedItemsState extends State<FeedItems> {
   final _quantityTextController = TextEditingController();
 
-  double _valor = 1;
-
   @override
   void initState() {
     _quantityTextController.text = "1";
@@ -98,7 +96,9 @@ class _FeedItemsState extends State<FeedItems> {
                           Flexible(
                             child: TextFormField(
                               onChanged: (value) {
-                                setState(() {});
+                                if (value != "") {
+                                  setState(() {});
+                                }
                               },
                               key: const ValueKey("10"),
                               controller: _quantityTextController,
